@@ -138,6 +138,7 @@ public class NuevaVentaActivity extends BaseActivity {
         // Required empty public constructor
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -182,6 +183,7 @@ public class NuevaVentaActivity extends BaseActivity {
 
 
         ConsultaCarrito();
+        refreshItems();
     }
 
     String[] RegresaClientes() {
@@ -262,7 +264,7 @@ public class NuevaVentaActivity extends BaseActivity {
                 a.setExistencia(1);
                 db.CreateArticuloCarrito(a);
                 mostrarMensajeError("Articulo Agregado");
-            }else{
+           }else{
                 if (a.getExistencia() >= (e.getExistencia()+1)){
                     e.setExistencia(e.getExistencia()+1);
                     db.UpdateArticleExistencia(e);
@@ -281,8 +283,12 @@ public class NuevaVentaActivity extends BaseActivity {
 
     }
 
+
+
     void ConsultaCarrito() {
         List<Articulo> array_list = new ArrayList();
+        nuevocliente_input_articulo.clearFocus();
+        nuevocliente_input_articulo.clearListSelection();
 
         int a = db.numberOfRows();
         array_list = db.GetAllArticlesCarrito();
@@ -301,6 +307,7 @@ public class NuevaVentaActivity extends BaseActivity {
         carrito.setAdapter(mAdapter);
 
     }
+
     double ActualizaEnganche(double importe){
         double porcentajeE = db.GetGeneralConfiguration().getEnganche();
         double Enganche =0.0;
@@ -329,12 +336,22 @@ public class NuevaVentaActivity extends BaseActivity {
             sum = 0;
         }
 
-        ventaArticulos_txt_total.setText(total + "");
+        double totalAdeudo = regresaaTotalAdeudo(total,ActualizaEnganche(total),RegresaBonificacion(total));
+
+        ventaArticulos_txt_total.setText(totalAdeudo + "");
         carrito.setAdapter(mAdapter);
         ventaArticulos_txt_enganche.setText(ActualizaEnganche(total)+"");
         ventaArticulos_txt_bonificacion.setText(RegresaBonificacion(ActualizaEnganche(total))+"");
         mSwipeRefreshLayout.setRefreshing(false);
 
+    }
+
+    double regresaaTotalAdeudo(double importe, double Enganche, double Bonificacion){
+        double totalAdeudo = 0.0;
+
+        totalAdeudo = importe - Enganche - Bonificacion ;
+
+        return totalAdeudo;
     }
 
 
@@ -363,10 +380,53 @@ public class NuevaVentaActivity extends BaseActivity {
 
     }
 
+    double regresaImporte(){
+        List<Articulo> array_list = new ArrayList();
+        int a = db.numberOfRows();
+        array_list = db.GetAllArticlesCarrito();
+        double sum = 0;
+        double total = 0;
+        for (Articulo articulo : array_list) {
+            sum = articulo.getExistencia() * articulo.getPrecio();
+            total += sum;
+            sum = 0;
+        }
+        return total;
+    }
+    double regresaPrecioContado(){
+        double precioContado = 0.0;
+        double totalAdeu= regresaaTotalAdeudo(regresaImporte(),ActualizaEnganche(regresaImporte()),RegresaBonificacion(regresaImporte()));
+
+        precioContado = totalAdeu / (1 + ((db.GetGeneralConfiguration().getTasaFinanciamiento() * db.GetGeneralConfiguration().getPlazoMaximo())/100));
+        return precioContado;
+    }
+
     void calculoPlazos(){
         // Aqui hacemos el calculo de cada uno de los formatos
+        double tasa = db.GetGeneralConfiguration().getTasaFinanciamiento();
 
-        PantallaPlazo(1,2,3,4,6,7,8,9,0,1,2,3);
+
+        double totalPagar3 = regresaPrecioContado() * (1+(tasa*3)/100);
+        double totalPagar6 = regresaPrecioContado() * (1+(tasa*6)/100);
+        double totalPagar9 = regresaPrecioContado() * (1+(tasa*9)/100);
+        double totalPagar12 = regresaPrecioContado() * (1+(tasa*12)/100);
+
+        double importeAbono3 = totalPagar3 / 3;
+        double importeAbono6 = totalPagar6 / 6;
+        double importeAbono9 = totalPagar9 / 9;
+        double importeAbono12 = totalPagar12 / 12;
+
+        double totalAdeudo = regresaaTotalAdeudo(regresaImporte(),ActualizaEnganche(regresaImporte()),RegresaBonificacion(regresaImporte()));
+
+        double importeAhorro3 = totalAdeudo - totalPagar3;
+        double importeAhorro6 = totalAdeudo - totalPagar6;
+        double importeAhorro9 = totalAdeudo - totalPagar9;
+        double importeAhorro12 = totalAdeudo - totalPagar12;
+
+
+        //double importeAhorro3 = totalPagar3 - t
+
+        PantallaPlazo(importeAbono3,totalPagar3,importeAhorro3,importeAbono6,totalPagar6,importeAhorro6,importeAbono9,totalPagar9,importeAhorro9,importeAbono12,totalPagar12,importeAhorro12);
     }
 
     void PantallaPlazo(double saldo3, double total3,double ahorro3, double saldo6, double total6,double ahorro6,double saldo9, double total9,double ahorro9, double saldo12, double total12,double ahorro12){

@@ -65,6 +65,7 @@ public class carritoAdapter extends RecyclerView.Adapter<carritoAdapter.MiCarrit
                     items.remove(position);
                     notifyItemRemoved(position);
                     notifyItemRangeChanged(position, items.size());
+                    notifyDataSetChanged();
                 }
             }
         });

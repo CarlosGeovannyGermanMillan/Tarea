@@ -722,6 +722,12 @@
                         android:id="@+id/nuevaventa_btn_terminar"
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
+                        android:textSize="50px"
+                        android:layout_marginLeft="20px"
+                        android:layout_marginRight="20px"
+                        android:layout_marginTop="40px"
+                        android:background="#3E8806"
+                        android:textColor="#ffffffff"
                         android:text="Terminar Venta" />
 
                 </LinearLayout>
