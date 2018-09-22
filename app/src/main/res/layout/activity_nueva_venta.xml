@@ -113,7 +113,8 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="8"
-                                    android:hint="Cliente:" />
+                                    android:hint="Cliente:"
+                                    android:inputType="text" />
 
                                 <ImageView
                                     android:id="@+id/nuevaventa_img_buscarcliente"
@@ -252,7 +253,8 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="8"
-                                    android:hint="Articulo:" />
+                                    android:hint="Articulo:"
+                                    android:inputType="text" />
 
                                 <ImageView
                                     android:id="@+id/nuevaventa_img_buscararticulo"

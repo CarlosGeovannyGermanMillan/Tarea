@@ -44,7 +44,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/nuevocliente_input_nombre"
+
+            <EditText
+                android:id="@+id/nuevocliente_input_nombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nombre" />
@@ -55,20 +57,26 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/nuevocliente_input_apepaterno"
+
+            <EditText
+                android:id="@+id/nuevocliente_input_apepaterno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Apellido paterno"/>
+                android:hint="Apellido paterno"
+                android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/nuevocliente_input_apematerno"
+
+            <EditText
+                android:id="@+id/nuevocliente_input_apematerno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Apellido materno"/>
+                android:hint="Apellido materno"
+                android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"

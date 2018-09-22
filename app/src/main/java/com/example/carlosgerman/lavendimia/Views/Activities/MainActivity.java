@@ -18,7 +18,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.carlosgerman.lavendimia.DataBase.StoreDB;
 import com.example.carlosgerman.lavendimia.Modelos.Cliente;
+import com.example.carlosgerman.lavendimia.Modelos.ConfiguracionGeneral;
 import com.example.carlosgerman.lavendimia.R;
 import com.example.carlosgerman.lavendimia.Views.Fragments.ArticulosFragment;
 import com.example.carlosgerman.lavendimia.Views.Fragments.ClientesFragment;
@@ -26,6 +28,8 @@ import com.example.carlosgerman.lavendimia.Views.Fragments.VentasFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, VentasFragment.OnFragmentInteractionListener {
+
+    StoreDB db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,12 @@ public class MainActivity extends AppCompatActivity
 
         VentasFragment fragment = new VentasFragment();
         iniciarFragmento(fragment,"Ventas");
+        db = new StoreDB(this);
+        ConfiguracionGeneral cg = new ConfiguracionGeneral();
+        cg.setPlazoMaximo(12);
+        cg.setEnganche(20);
+        cg.setTasaFinanciamiento(2.8);
+        db.CreateGeneralConfiguration(cg);
     }
 
     @Override

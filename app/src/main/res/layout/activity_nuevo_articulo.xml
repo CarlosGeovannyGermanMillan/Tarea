@@ -43,10 +43,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/nuevoarticulo_input_descripcion"
+
+            <EditText
+                android:id="@+id/nuevoarticulo_input_descripcion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Descripcion" />
+                android:hint="Descripcion"
+                android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -64,20 +67,26 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/nuevoarticulo_input_Precio"
+
+            <EditText
+                android:id="@+id/nuevoarticulo_input_Precio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Precio"/>
+                android:hint="Precio"
+                android:inputType="numberDecimal" />
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/nuevoarticulo_input_existencia"
+
+            <EditText
+                android:id="@+id/nuevoarticulo_input_existencia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Existencia"/>
+                android:hint="Existencia"
+                android:inputType="number" />
         </android.support.design.widget.TextInputLayout>
 
         <LinearLayout
