@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <android.support.v7.widget.CardView
+        android:id="@+id/card1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="6dp"
+        card_view:cardElevation="10dp"
+        card_view:cardUseCompatPadding="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:background="#4caf50"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_gravity="bottom"
+                    android:text="Folio:"
+                    android:textColor="#ffe3e3e3"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/itemVenta_txt_folio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="top"
+                    android:text="1000"
+                    android:textColor="#ffe3e3e3"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+
+                    />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:background="#ffffffff"
+
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/itemVenta_txt_apepaterno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="top"
+                    android:layout_weight="1"
+                    android:text="German"
+                    android:paddingLeft="10dp"
+                    android:textColor="#1b5e20"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+
+                    />
+
+                <TextView
+                    android:id="@+id/itemVenta_txt_apematerno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="top"
+                    android:layout_weight="1"
+                    android:text="Millan"
+                    android:textColor="#1b5e20"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+
+                    />
+                <TextView
+                    android:id="@+id/itemVenta_txt_nombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="top"
+                    android:layout_weight="1"
+                    android:text="Carlos Geovanny"
+                    android:textColor="#1b5e20"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:background="#ffffffff"
+
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="top"
+                    android:text="Fecha:"
+                    android:layout_weight="3"
+                    android:paddingLeft="10dp"
+                    android:textColor="#1b5e20"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+
+                    />
+                <TextView
+                    android:id="@+id/itemVenta_txt_fecha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="top"
+                    android:text="40"
+                    android:layout_weight="3"
+                    android:paddingLeft="10dp"
+                    android:textColor="#1b5e20"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="#4caf50">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="top"
+                    android:text="Total: $"
+                    android:paddingLeft="10dp"
+                    android:textColor="#ffffffff"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+
+                    />
+
+                <TextView
+                    android:id="@+id/itemVenta_txt_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="top"
+                    android:layout_weight="3"
+                    android:text="1023.23"
+                    android:textColor="#ffffffff"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+
+                    />
+
+                <ImageView
+                    android:id="@+id/itemVenta_imgv_info"
+                    android:layout_width="20dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="3"
+                    android:src="@drawable/ic_viewmore"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="4dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>
