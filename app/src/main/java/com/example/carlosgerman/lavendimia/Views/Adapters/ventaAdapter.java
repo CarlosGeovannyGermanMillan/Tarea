@@ -39,7 +39,7 @@ public class ventaAdapter extends RecyclerView.Adapter<ventaAdapter.MyVentasAdap
     public void onBindViewHolder(@NonNull final ventaAdapter.MyVentasAdapterViewHolder Holder, int i) {
         final Venta ventas = ventaItemList.get(i);
         //Holder.itemCliente_txt_nombre.setText(ventas.getNombre());
-        Holder.itemVenta_txt_folio.setText(ventas.getFolio());
+        Holder.itemVenta_txt_folio.setText(ventas.getFolio()+"");
         Holder.itemVenta_txt_fecha.setText(ventas.getFecha());
         Holder.itemVenta_txt_total.setText(ventas.getTotal()+"");
 

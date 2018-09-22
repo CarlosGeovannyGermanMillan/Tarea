@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.carlosgerman.lavendimia.DataBase.StoreDB;
 import com.example.carlosgerman.lavendimia.Modelos.Articulo;
 import com.example.carlosgerman.lavendimia.Modelos.Cliente;
+import com.example.carlosgerman.lavendimia.Modelos.Venta;
 import com.example.carlosgerman.lavendimia.R;
 import com.example.carlosgerman.lavendimia.Utilerias.ItemClickSupport;
 import com.example.carlosgerman.lavendimia.Utilerias.Validacion;
@@ -30,7 +31,9 @@ import com.example.carlosgerman.lavendimia.Views.Adapters.carritoAdapter;
 import com.example.carlosgerman.lavendimia.Views.Fragments.ArticulosFragment;
 import com.example.carlosgerman.lavendimia.Views.Fragments.ClientesFragment;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -365,20 +368,11 @@ public class NuevaVentaActivity extends BaseActivity {
             ventaCliente_txt_apepamaterno.setText(c.getApellidoMaterno());
             ventaCliente_txt_rfc.setText(c.getRFC());
 
-        } else
-
-        {
+        } else {
             mostrarMensajeError("Intente de nuevo");
         }
     }
 
-    void LimpiarRadioButtons(){
-        rbtn3venta.setSelected(false);
-        rbtn6venta.setSelected(false);
-        rbtn9venta.setSelected(false);
-        rbtn12venta.setSelected(false);
-
-    }
 
     double regresaImporte(){
         List<Articulo> array_list = new ArrayList();
@@ -427,6 +421,54 @@ public class NuevaVentaActivity extends BaseActivity {
         //double importeAhorro3 = totalPagar3 - t
 
         PantallaPlazo(importeAbono3,totalPagar3,importeAhorro3,importeAbono6,totalPagar6,importeAhorro6,importeAbono9,totalPagar9,importeAhorro9,importeAbono12,totalPagar12,importeAhorro12);
+    }
+
+    @OnClick(R.id.nuevaventa_btn_terminar)
+    void clickFinalizarVenta(){
+        double saldoglobal = 0;
+        int plazoglobal = 0;
+        double ahorroglobal = 0;
+        double totalglobal = 0;
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+
+        Venta venta = new Venta();
+        if(rbtn3venta.isChecked()){
+            ahorroglobal = Double.parseDouble(txt3_ahorro.getText().toString());
+            saldoglobal = Double.parseDouble(txt3_saldo.getText().toString());
+            totalglobal = Double.parseDouble(txt3_total.getText().toString());
+            plazoglobal = 3;
+
+        } else if(rbtn6venta.isChecked()){
+            ahorroglobal = Double.parseDouble(txt6_ahorro.getText().toString());
+            saldoglobal = Double.parseDouble(txt6_saldo.getText().toString());
+            totalglobal = Double.parseDouble(txt6_total.getText().toString());
+            plazoglobal = 6;
+
+        }else if(rbtn9venta.isChecked()){
+            ahorroglobal = Double.parseDouble(txt9_ahorro.getText().toString());
+            saldoglobal = Double.parseDouble(txt9_saldo.getText().toString());
+            totalglobal = Double.parseDouble(txt9_total.getText().toString());
+            plazoglobal = 9;
+
+        } else if(rbtn12venta.isChecked()){
+            ahorroglobal = Double.parseDouble(txt12_ahorro.getText().toString());
+            saldoglobal = Double.parseDouble(txt12_saldo.getText().toString());
+            totalglobal = Double.parseDouble(txt12_total.getText().toString());
+            plazoglobal = 12;
+        }
+        venta.setPlazo(plazoglobal);
+        venta.setFecha(date);
+        venta.setTotal(totalglobal);
+        venta.setClaveCliente(Integer.parseInt(ventaCliente_txt_clave.getText().toString()));
+        venta.setEstatus("Activa");
+        db.CreateVenta(venta);
+        mostrarMensaje("Venta Finalizada");
+
+        db.deleteAllCarrito();
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+        this.finish();
+
     }
 
     void PantallaPlazo(double saldo3, double total3,double ahorro3, double saldo6, double total6,double ahorro6,double saldo9, double total9,double ahorro9, double saldo12, double total12,double ahorro12){
