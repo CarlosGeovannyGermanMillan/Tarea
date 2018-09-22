@@ -45,7 +45,6 @@ public class articuloAdapter extends RecyclerView.Adapter<articuloAdapter.MyArti
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), NuevoArticuloActivity.class);
-
                 intent.putExtra("Clave",Holder.itemArticulo_txt_clave.getText());
                 intent.putExtra("Descripcion",Holder.itemArticulo_txt_descripcion.getText());
                 intent.putExtra("Precio",Holder.itemArticulo_txt_precio.getText());

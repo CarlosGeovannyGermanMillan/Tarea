@@ -12,6 +12,7 @@ import com.example.carlosgerman.lavendimia.DataBase.StoreDB;
 import com.example.carlosgerman.lavendimia.Modelos.Articulo;
 import com.example.carlosgerman.lavendimia.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -21,9 +22,7 @@ public class carritoAdapter extends RecyclerView.Adapter<carritoAdapter.MiCarrit
 
     private List<Articulo> items;
 
-    public carritoAdapter(List carrito) {
-        this.items = carrito;
-    }
+    public carritoAdapter(List carrito) { items = carrito; }
 
     @NonNull
     @Override
@@ -47,7 +46,7 @@ public class carritoAdapter extends RecyclerView.Adapter<carritoAdapter.MiCarrit
             @Override
             public void onClick(View v) {
                 Articulo a = holder.db.GetArticleName(produ.getDescripcion());
-                if (a.getExistencia() <= produ.getExistencia()+1){
+                if (a.getExistencia() >= produ.getExistencia()+1){
                     produ.setExistencia(produ.getExistencia() + 1);
                     holder.db.UpdateArticleExistencia(produ);
                     notifyDataSetChanged();
@@ -71,6 +70,34 @@ public class carritoAdapter extends RecyclerView.Adapter<carritoAdapter.MiCarrit
         });
 
     }
+    StoreDB db;
+    double ActualizaEnganche(double importe){
+        double porcentajeE = db.GetGeneralConfiguration().getEnganche();
+        double Enganche =0.0;
+        Enganche = (porcentajeE / 100) * importe;
+        return Enganche;
+    }
+    double RegresaBonificacion(double enganche){
+        double tasa= db.GetGeneralConfiguration().getTasaFinanciamiento();
+        int plazo = db.GetGeneralConfiguration().getPlazoMaximo();
+
+        double RBonificacion =  enganche * ((tasa*plazo)/100);
+        return RBonificacion;
+    }
+    double total(){
+        List<Articulo> array_list = new ArrayList();
+
+        int a = db.numberOfRows();
+        array_list = db.GetAllArticlesCarrito();
+        double sum = 0;
+        double total = 0;
+        for (Articulo articulo : array_list) {
+            sum = articulo.getExistencia() * articulo.getPrecio();
+            total += sum;
+            sum = 0;
+        }
+        return total;
+    }
 
 
     @Override
@@ -79,20 +106,12 @@ public class carritoAdapter extends RecyclerView.Adapter<carritoAdapter.MiCarrit
     }
 
     public static class MiCarritoAdapterViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.itemCarrito_imgv_plus)
-        ImageView imgMas;
-        @BindView(R.id.itemCarrito_imgv_minus)
-        ImageView imgMenos;
-        public
-        @BindView(R.id.itemCarrito_txt_precio)
-        TextView precio;
-        public
-        @BindView(R.id.itemCarrito_txt_descripcion)
-        TextView descripcion;
-        @BindView(R.id.itemCarrito_txt_cantidad)
-        TextView cantidad;
-        @BindView(R.id.itemCarrito_txt_importe)
-        TextView importe;
+        @BindView(R.id.itemCarrito_imgv_plus) ImageView imgMas;
+        @BindView(R.id.itemCarrito_imgv_minus) ImageView imgMenos;
+        public @BindView(R.id.itemCarrito_txt_precio) TextView precio;
+        public @BindView(R.id.itemCarrito_txt_descripcion) TextView descripcion;
+        @BindView(R.id.itemCarrito_txt_cantidad) TextView cantidad;
+        @BindView(R.id.itemCarrito_txt_importe) TextView importe;
 
         StoreDB db;
 

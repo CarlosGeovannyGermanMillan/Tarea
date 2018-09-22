@@ -87,8 +87,9 @@
                     android:id="@+id/ventaCliente_ly_cliente"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -122,6 +123,7 @@
                                     android:src="@drawable/ic_search" />
                             </LinearLayout>
                         </android.support.design.widget.TextInputLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
@@ -134,21 +136,22 @@
                             android:background="@color/cardview_dark_background"
                             android:backgroundTint="@color/cardview_dark_background"></LinearLayout>
                     </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/ventaCliente_txt_clave"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:text="Clave"
-                        android:textColor="@color/cardview_dark_background"
-                        android:textSize="35sp" />
-                </LinearLayout>
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/ventaCliente_txt_clave"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center"
+                            android:text="Clave"
+                            android:textColor="@color/cardview_dark_background"
+                            android:textSize="35sp" />
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -223,8 +226,8 @@
                     android:id="@+id/ventaArticulos_ly_articulos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -259,6 +262,7 @@
                                     android:src="@drawable/ic_viewmore" />
                             </LinearLayout>
                         </android.support.design.widget.TextInputLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
@@ -382,20 +386,344 @@
                     android:id="@+id/ventaPlazo_ly_plazo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:orientation="vertical">
-                    <android.support.v4.widget.SwipeRefreshLayout
-                        android:id="@+id/swipeRefreshLayout_Plazo"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:orientation="vertical">
 
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/Fragment_rcv_Plazo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
-                        </android.support.v7.widget.RecyclerView>
-                    </android.support.v4.widget.SwipeRefreshLayout>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:text="ABONOS"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:text="SALDO"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="15dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:text="TOTAL"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:text="AHORRO"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:text="SELEC"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="15sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="4">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_weight="2"
+                                        android:gravity="center"
+                                        android:text="3"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="15sp" />
+
+                                    <TextView
+                                        android:id="@+id/nuevaventa_txt3_saldo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_weight="2"
+                                        android:gravity="center"
+                                        android:text="$12345"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="15sp" />
+
+                                    <TextView
+                                        android:id="@+id/nuevaventa_txt3_total"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_weight="2"
+                                        android:gravity="center"
+                                        android:text="$223399"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="15sp" />
+
+                                    <TextView
+                                        android:id="@+id/nuevaventa_txt3_ahorro"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_weight="2"
+                                        android:gravity="center"
+                                        android:text="$111111"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="15sp" />
+
+
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_weight="2"
+                                        android:gravity="center"
+                                        android:text="6"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="15sp" />
+
+                                    <TextView
+                                        android:id="@+id/nuevaventa_txt6_saldo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_weight="2"
+                                        android:gravity="center"
+                                        android:text="$12345"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="15sp" />
+
+                                    <TextView
+                                        android:id="@+id/nuevaventa_txt6_total"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_weight="2"
+                                        android:gravity="center"
+                                        android:text="$223399"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="15sp" />
+
+                                    <TextView
+                                        android:id="@+id/nuevaventa_txt6_ahorro"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_weight="2"
+                                        android:gravity="center"
+                                        android:text="$111111"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="15sp" />
+
+
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_weight="2"
+                                        android:gravity="center"
+                                        android:text="9"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="15sp" />
+
+                                    <TextView
+                                        android:id="@+id/nuevaventa_txt9_saldo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_weight="2"
+                                        android:gravity="center"
+                                        android:text="$12345"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="15sp" />
+
+                                    <TextView
+                                        android:id="@+id/nuevaventa_txt9_total"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_weight="2"
+                                        android:gravity="center"
+                                        android:text="$223399"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="15sp" />
+
+                                    <TextView
+                                        android:id="@+id/nuevaventa_txt9_ahorro"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_weight="2"
+                                        android:gravity="center"
+                                        android:text="$111111"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="15sp" />
+
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_weight="2"
+                                        android:gravity="center"
+                                        android:text="12"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="15sp" />
+
+                                    <TextView
+                                        android:id="@+id/nuevaventa_txt12_saldo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_weight="2"
+                                        android:gravity="center"
+                                        android:text="$12345"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="15sp" />
+
+                                    <TextView
+                                        android:id="@+id/nuevaventa_txt12_total"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_weight="2"
+                                        android:gravity="center"
+                                        android:text="$223399"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="15sp" />
+
+                                    <TextView
+                                        android:id="@+id/nuevaventa_txt12_ahorro"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_weight="2"
+                                        android:gravity="center"
+                                        android:text="$111111"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="15sp" />
+
+
+                                </LinearLayout>
+                            </LinearLayout>
+                            <RadioGroup
+                                android:layout_width="12dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+                                <RadioButton
+                                    android:id="@+id/nuevaventa_rbtn3_venta"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_weight="2"
+                                    android:gravity="center"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="15sp" />
+                                <RadioButton
+                                    android:id="@+id/nuevaventa_rbtn6_venta"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_weight="2"
+                                    android:gravity="center"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="15sp" />
+                                <RadioButton
+                                    android:id="@+id/nuevaventa_rbtn9_venta"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_weight="2"
+                                    android:gravity="center"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="15sp" />
+                                <RadioButton
+                                    android:id="@+id/nuevaventa_rbtn12_venta"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_weight="2"
+                                    android:gravity="center"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="15sp" />
+                            </RadioGroup>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/nuevaventa_btn_terminar"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:text="Terminar Venta" />
+
                 </LinearLayout>
 
             </RelativeLayout>

@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -93,12 +94,50 @@ public class NuevaVentaActivity extends BaseActivity {
     LinearLayout nuevaventa_ly_buscar;
 
 
+
+    // Binding natural para opcion Tab3 (Ventas)
+    @BindView(R.id.nuevaventa_rbtn3_venta)
+    RadioButton rbtn3venta;
+    @BindView(R.id.nuevaventa_rbtn6_venta)
+    RadioButton rbtn6venta;
+    @BindView(R.id.nuevaventa_rbtn9_venta)
+    RadioButton rbtn9venta;
+    @BindView(R.id.nuevaventa_rbtn12_venta)
+    RadioButton rbtn12venta;
+
+    @BindView(R.id.nuevaventa_txt3_ahorro)
+    TextView txt3_ahorro;
+    @BindView(R.id.nuevaventa_txt6_ahorro)
+    TextView txt6_ahorro;
+    @BindView(R.id.nuevaventa_txt9_ahorro)
+    TextView txt9_ahorro;
+    @BindView(R.id.nuevaventa_txt12_ahorro)
+    TextView txt12_ahorro;
+
+    @BindView(R.id.nuevaventa_txt3_saldo)
+    TextView txt3_saldo;
+    @BindView(R.id.nuevaventa_txt6_saldo)
+    TextView txt6_saldo;
+    @BindView(R.id.nuevaventa_txt9_saldo)
+    TextView txt9_saldo;
+    @BindView(R.id.nuevaventa_txt12_saldo)
+    TextView txt12_saldo;
+
+    @BindView(R.id.nuevaventa_txt3_total)
+    TextView txt3_total;
+    @BindView(R.id.nuevaventa_txt6_total)
+    TextView txt6_total;
+    @BindView(R.id.nuevaventa_txt9_total)
+    TextView txt9_total;
+    @BindView(R.id.nuevaventa_txt12_total)
+    TextView txt12_total;
+
+
+
     public NuevaVentaActivity() {
         // Required empty public constructor
     }
 
-
-    //String[] a = {"Carlos","Cesar","Carrillo","Peres","Josefina","Jose"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,12 +161,6 @@ public class NuevaVentaActivity extends BaseActivity {
 
         int c = db.ReturnMaxVenta() + 1;
         nuevavente_txt_folio.setText(c + "");
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         String[] nombres = RegresaClientes();
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.select_dialog_item, nombres);
         nuevocliente_input_nombre.setThreshold(1);
@@ -138,6 +171,15 @@ public class NuevaVentaActivity extends BaseActivity {
         ArrayAdapter adapterArti = new ArrayAdapter(this, android.R.layout.select_dialog_item, articu);
         nuevocliente_input_articulo.setThreshold(1);
         nuevocliente_input_articulo.setAdapter(adapterArti);
+
+
+        //Articulo cant = db.GetArticleName(nuevocliente_input_articulo.getText().toString());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
 
         ConsultaCarrito();
     }
@@ -181,33 +223,56 @@ public class NuevaVentaActivity extends BaseActivity {
     @SuppressLint("ResourceAsColor")
     @OnClick(R.id.nuevaventa_img_venta)
     void ClickArticulos() {
-        ventaCliente_ly_cliente.setVisibility(LinearLayout.GONE);
-        ventaArticulos_ly_articulos.setVisibility(LinearLayout.VISIBLE);
-        ventaPlazo_ly_plazo.setVisibility(LinearLayout.GONE);
-        nuevaventa_ly_buscar.setVisibility(LinearLayout.VISIBLE);
-        nuevaventa_img_cliente.setBackgroundResource(android.R.color.white);
-        nuevaventa_img_venta.setBackgroundResource(android.R.color.holo_green_dark);
-        nuevaventa_img_plazo.setBackgroundResource(android.R.color.white);
+        if (Validacion.hasText(nuevocliente_input_nombre, "Ingrese Cliente")) {
+            ventaCliente_ly_cliente.setVisibility(LinearLayout.GONE);
+            ventaArticulos_ly_articulos.setVisibility(LinearLayout.VISIBLE);
+            ventaPlazo_ly_plazo.setVisibility(LinearLayout.GONE);
+            nuevaventa_ly_buscar.setVisibility(LinearLayout.VISIBLE);
+            nuevaventa_img_cliente.setBackgroundResource(android.R.color.white);
+            nuevaventa_img_venta.setBackgroundResource(android.R.color.holo_green_dark);
+            nuevaventa_img_plazo.setBackgroundResource(android.R.color.white);
+        }
     }
 
     @SuppressLint("ResourceAsColor")
     @OnClick(R.id.nuevaventa_img_plazo)
     void ClickPlazo() {
-        ventaCliente_ly_cliente.setVisibility(LinearLayout.GONE);
-        ventaArticulos_ly_articulos.setVisibility(LinearLayout.GONE);
-        ventaPlazo_ly_plazo.setVisibility(LinearLayout.VISIBLE);
-        nuevaventa_ly_buscar.setVisibility(LinearLayout.GONE);
-        nuevaventa_img_cliente.setBackgroundResource(android.R.color.white);
-        nuevaventa_img_venta.setBackgroundResource(android.R.color.white);
-        nuevaventa_img_plazo.setBackgroundResource(android.R.color.holo_green_dark);
+        if (Validacion.hasText(nuevocliente_input_articulo, "Ingrese Articulo")) {
+            ventaCliente_ly_cliente.setVisibility(LinearLayout.GONE);
+            ventaArticulos_ly_articulos.setVisibility(LinearLayout.GONE);
+            ventaPlazo_ly_plazo.setVisibility(LinearLayout.VISIBLE);
+            nuevaventa_ly_buscar.setVisibility(LinearLayout.GONE);
+            nuevaventa_img_cliente.setBackgroundResource(android.R.color.white);
+            nuevaventa_img_venta.setBackgroundResource(android.R.color.white);
+            nuevaventa_img_plazo.setBackgroundResource(android.R.color.holo_green_dark);
+
+            calculoPlazos();
+        }
     }
 
     @OnClick(R.id.nuevaventa_img_buscararticulo)
     void ClickBuscarArticulo() {
-        if (hasValidation()) {
-            Articulo a = db.GetArticleName(nuevocliente_input_articulo.getText().toString());
-            db.CreateArticuloCarrito(a);
 
+        if (Validacion.hasText(nuevocliente_input_articulo, "Ingrese Articulo")) {
+            Articulo a = db.GetArticleName(nuevocliente_input_articulo.getText().toString());
+            Articulo e = db.GetArticleNameCarrito(nuevocliente_input_articulo.getText().toString());
+
+
+            if (e.getClave() == -1){
+                a.setExistencia(1);
+                db.CreateArticuloCarrito(a);
+                mostrarMensajeError("Articulo Agregado");
+            }else{
+                if (a.getExistencia() >= (e.getExistencia()+1)){
+                    e.setExistencia(e.getExistencia()+1);
+                    db.UpdateArticleExistencia(e);
+                    mostrarMensajeError("Articulo Agregado");
+                }else{
+                    mostrarMensajeError("Articulos Insuficientes");
+                }
+            }
+
+            refreshItems();
         } else
 
         {
@@ -231,16 +296,25 @@ public class NuevaVentaActivity extends BaseActivity {
         }
 
         ventaArticulos_txt_total.setText(total + "");
+        ventaArticulos_txt_enganche.setText(ActualizaEnganche(total)+"");
+        ventaArticulos_txt_bonificacion.setText(RegresaBonificacion(ActualizaEnganche(total))+"");
         carrito.setAdapter(mAdapter);
-        DefaultItemAnimator animator = new DefaultItemAnimator() {
-            @Override
-            public boolean canReuseUpdatedViewHolder(RecyclerView.ViewHolder viewHolder) {
-                return true;
-            }
-        };
-        carrito.setItemAnimator(animator);
 
     }
+    double ActualizaEnganche(double importe){
+        double porcentajeE = db.GetGeneralConfiguration().getEnganche();
+        double Enganche =0.0;
+        Enganche = (porcentajeE / 100) * importe;
+        return Enganche;
+    }
+    double RegresaBonificacion(double enganche){
+        double tasa= db.GetGeneralConfiguration().getTasaFinanciamiento();
+        int plazo = db.GetGeneralConfiguration().getPlazoMaximo();
+
+        double RBonificacion =  enganche * ((tasa*plazo)/100);
+        return RBonificacion;
+    }
+
     void refreshItems() {
         List<Articulo> array_list = new ArrayList();
 
@@ -257,13 +331,8 @@ public class NuevaVentaActivity extends BaseActivity {
 
         ventaArticulos_txt_total.setText(total + "");
         carrito.setAdapter(mAdapter);
-        DefaultItemAnimator animator = new DefaultItemAnimator() {
-            @Override
-            public boolean canReuseUpdatedViewHolder(RecyclerView.ViewHolder viewHolder) {
-                return true;
-            }
-        };
-        carrito.setItemAnimator(animator);
+        ventaArticulos_txt_enganche.setText(ActualizaEnganche(total)+"");
+        ventaArticulos_txt_bonificacion.setText(RegresaBonificacion(ActualizaEnganche(total))+"");
         mSwipeRefreshLayout.setRefreshing(false);
 
     }
@@ -271,7 +340,7 @@ public class NuevaVentaActivity extends BaseActivity {
 
     @OnClick(R.id.nuevaventa_img_buscarcliente)
     void ClickBuscarCliente() {
-        if (hasValidation()) {
+        if (Validacion.hasText(nuevocliente_input_nombre, "Ingrese Cliente")) {
             Cliente c = db.GetClientName(nuevocliente_input_nombre.getText().toString());
             ventaCliente_txt_nombre.setText(c.getNombre());
             ventaCliente_txt_clave.setText(c.getPrimary() + "");
@@ -284,16 +353,38 @@ public class NuevaVentaActivity extends BaseActivity {
         {
             mostrarMensajeError("Intente de nuevo");
         }
+    }
+
+    void LimpiarRadioButtons(){
+        rbtn3venta.setSelected(false);
+        rbtn6venta.setSelected(false);
+        rbtn9venta.setSelected(false);
+        rbtn12venta.setSelected(false);
 
     }
 
+    void calculoPlazos(){
+        // Aqui hacemos el calculo de cada uno de los formatos
 
-    boolean hasValidation() {
-        if (!Validacion.hasText(nuevocliente_input_nombre, "Ingrese Cliente"))
-            return false;
-        if (!Validacion.hasText(nuevocliente_input_articulo, "Ingrese Articulo"))
-            return false;
-        return true;
+        PantallaPlazo(1,2,3,4,6,7,8,9,0,1,2,3);
+    }
 
+    void PantallaPlazo(double saldo3, double total3,double ahorro3, double saldo6, double total6,double ahorro6,double saldo9, double total9,double ahorro9, double saldo12, double total12,double ahorro12){
+        // 3 meses
+        txt3_saldo.setText(saldo3+"");
+        txt3_ahorro.setText(ahorro3+"");
+        txt3_total.setText(total3+"");
+        // 6 meses
+        txt6_saldo.setText(saldo6+"");
+        txt6_ahorro.setText(ahorro6+"");
+        txt6_total.setText(total6+"");
+        // 9 meses
+        txt9_saldo.setText(saldo9+"");
+        txt9_ahorro.setText(ahorro9+"");
+        txt9_total.setText(total9+"");
+        // 12 meses
+        txt12_saldo.setText(saldo12+"");
+        txt12_ahorro.setText(ahorro12+"");
+        txt12_total.setText(total12+"");
     }
 }

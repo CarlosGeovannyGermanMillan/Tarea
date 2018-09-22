@@ -405,7 +405,7 @@ public class StoreDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Articulo c= new Articulo();
         c.setClave(-1);
-        String query = "select * from " + Cliente_TABLE_NAME;
+        String query = "select * from " + Articulo_TABLE_NAME;
         try{
             Cursor puntero =  db.rawQuery( query, null );
             puntero.moveToFirst();
@@ -486,7 +486,7 @@ public class StoreDB extends SQLiteOpenHelper {
         contentValues.put("Precio", article.getPrecio());
         contentValues.put("Existencia", article.getExistencia());
 
-        db.update("Articulo", contentValues, "Clave = ? ", new String[] { article.getClave()+"" } );
+        db.update("Carrito", contentValues, "Clave = ? ", new String[] { article.getClave()+"" } );
         return true;
     }
     public Articulo GetArticleNameCarrito(String arti){
