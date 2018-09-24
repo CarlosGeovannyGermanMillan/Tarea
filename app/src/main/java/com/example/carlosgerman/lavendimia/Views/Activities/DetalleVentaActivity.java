@@ -28,7 +28,6 @@ public class DetalleVentaActivity extends AppCompatActivity {
 
     private ArticulosFragment.OnFragmentInteractionListener mListener;
     public List<DetalleVenta> listArticulos;
-    private RecyclerView.Adapter ArticlesAdapter;
     public ProgressDialog mDialog;
     private RecyclerView.Adapter MyAdapter;
 

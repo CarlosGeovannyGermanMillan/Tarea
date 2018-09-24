@@ -1,18 +1,15 @@
 package com.example.carlosgerman.lavendimia.Views.Adapters;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.carlosgerman.lavendimia.DataBase.StoreDB;
 
 import com.example.carlosgerman.lavendimia.Modelos.DetalleVenta;
 import com.example.carlosgerman.lavendimia.R;
-import com.example.carlosgerman.lavendimia.Views.Activities.DetalleVentaActivity;
 
 
 import java.util.List;

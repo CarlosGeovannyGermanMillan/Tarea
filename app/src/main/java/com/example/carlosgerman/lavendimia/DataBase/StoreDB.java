@@ -73,23 +73,22 @@ public class StoreDB extends SQLiteOpenHelper {
         db.insert("Venta", null,obj );
         return true;
     }
-    public List<DetalleVenta> ReturnDetails(int ventaid) {
+    public List<DetalleVenta> ReturnDetails(int claveVenta) {
         List<DetalleVenta> array_list = new ArrayList();
         DetalleVenta solicitud = new DetalleVenta();
 
         SQLiteDatabase db = this.getReadableDatabase();
-       String consulta = "select ClaveVenta,ClaveArticulo,Cantidad from "+DetalleVenta_TABLE_NAME;
+       String consulta = "select * from "+DetalleVenta_TABLE_NAME;
         try {
             Cursor res = db.rawQuery(consulta, null);
             res.moveToFirst();
             while (!res.isAfterLast()) {
                 solicitud = new DetalleVenta();
-                solicitud.setClaveVenta(res.getInt(0));
-                solicitud.setClaveArticulo(res.getInt(1));
-                solicitud.setCantidad(res.getInt(2));
-                if (ventaid == solicitud.getClaveVenta()){
-                    array_list.add(solicitud);
-                }
+                solicitud.setPrimary(res.getInt(0));
+                solicitud.setClaveVenta(res.getInt(1));
+                solicitud.setClaveArticulo(res.getInt(2));
+                solicitud.setCantidad(res.getInt(3));
+                array_list.add(solicitud);
                 res.moveToNext();
             }
         }
@@ -185,7 +184,7 @@ public class StoreDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cliente c= new Cliente();
         c.setPrimary(-1);
-        String query = "select * from " + Cliente_TABLE_NAME +" where Clave='"+client+"'";
+        String query = "select * from " + Cliente_TABLE_NAME +" where Clave = '"+client+"''";
         try{
             Cursor puntero =  db.rawQuery( query, null );
             puntero.moveToFirst();
@@ -358,7 +357,7 @@ public class StoreDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Articulo a= new Articulo();
         a.setClave(-1);
-        String query = "select * from " + Articulo_TABLE_NAME +" where Clave='"+article+"'";
+        String query = "select * from " + Articulo_TABLE_NAME +" where Clave= "+article;
         try{
             Cursor puntero =  db.rawQuery( query, null );
             puntero.moveToFirst();

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.carlosgerman.lavendimia.DataBase.StoreDB;
 
+import com.example.carlosgerman.lavendimia.Modelos.Cliente;
 import com.example.carlosgerman.lavendimia.Modelos.Venta;
 import com.example.carlosgerman.lavendimia.R;
 import com.example.carlosgerman.lavendimia.Views.Activities.DetalleVentaActivity;
@@ -38,7 +39,7 @@ public class ventaAdapter extends RecyclerView.Adapter<ventaAdapter.MyVentasAdap
     @Override
     public void onBindViewHolder(@NonNull final ventaAdapter.MyVentasAdapterViewHolder Holder, int i) {
         final Venta ventas = ventaItemList.get(i);
-        //Holder.itemCliente_txt_nombre.setText(ventas.getNombre());
+
         Holder.itemVenta_txt_folio.setText(ventas.getFolio()+"");
         Holder.itemVenta_txt_fecha.setText(ventas.getFecha());
         Holder.itemVenta_txt_total.setText(ventas.getTotal()+"");

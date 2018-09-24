@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.example.carlosgerman.lavendimia.DataBase.StoreDB;
 import com.example.carlosgerman.lavendimia.Modelos.Articulo;
 import com.example.carlosgerman.lavendimia.Modelos.Cliente;
+import com.example.carlosgerman.lavendimia.Modelos.ConfiguracionGeneral;
 import com.example.carlosgerman.lavendimia.Modelos.DetalleVenta;
 import com.example.carlosgerman.lavendimia.Modelos.Venta;
 import com.example.carlosgerman.lavendimia.R;
@@ -261,13 +262,25 @@ public class NuevaVentaActivity extends BaseActivity {
             Articulo a = db.GetArticleName(B);
             Articulo e = db.GetArticleNameCarrito(B);
 
+            ConfiguracionGeneral cg = new ConfiguracionGeneral();
+            cg = db.GetGeneralConfiguration();
+
             Articulo nuevo = new Articulo();
 
-
+            if ((a.getClave()) == 0){
+                mostrarMensaje("Articulo no existe");
+                return;
+            }
+            if (a.getExistencia()==0){
+                mostrarMensaje("No hay existencia");
+                return;
+            }
             if (e.getClave() == -1){
                 nuevo.setDescripcion(a.getDescripcion());
                 nuevo.setExistencia(1);
-                nuevo.setPrecio(a.getPrecio());
+                //double precioImpuesto = a.getPrecio() - (a.getPrecio() * 0.16);
+                double precioImpuesto = a.getPrecio() * (1 + (cg.getTasaFinanciamiento()*cg.getPlazoMaximo())/100);
+                nuevo.setPrecio(precioImpuesto);
                 nuevo.setModelo(a.getModelo());
                 db.CreateArticuloCarrito(nuevo);
                 mostrarMensajeError("Articulo Nuevo Agregado");
@@ -365,6 +378,10 @@ public class NuevaVentaActivity extends BaseActivity {
     void ClickBuscarCliente() {
         if (Validacion.hasText(nuevocliente_input_nombre, "Ingrese Cliente")) {
             Cliente c = db.GetClientName(nuevocliente_input_nombre.getText().toString());
+            if (c.getPrimary()==-1){
+                mostrarMensajeError("Cliente no existe");
+                return;
+            }
             ventaCliente_txt_nombre.setText(c.getNombre());
             ventaCliente_txt_clave.setText(c.getPrimary() + "");
             ventaCliente_txt_apepaterno.setText(c.getApellidoPaterno());
@@ -470,6 +487,8 @@ public class NuevaVentaActivity extends BaseActivity {
         List<Articulo> array_list = new ArrayList();
         array_list = db.GetAllArticlesCarrito();
         DetalleVenta dv;
+        Articulo artiNuevo;
+        int ExiActual;
 
 
         for (Articulo articulo : array_list) {
@@ -477,6 +496,10 @@ public class NuevaVentaActivity extends BaseActivity {
             dv.setClaveVenta(Integer.parseInt(nuevavente_txt_folio.getText().toString()));
             dv.setClaveArticulo(articulo.getClave());
             dv.setCantidad(articulo.getExistencia());
+            artiNuevo = db.GetArticle(articulo.getClave());
+            ExiActual = artiNuevo.getExistencia();
+            artiNuevo.setExistencia(ExiActual-articulo.getExistencia());
+            db.UpdateArticle(artiNuevo);
             db.CreateDetail(dv);
         }
 
