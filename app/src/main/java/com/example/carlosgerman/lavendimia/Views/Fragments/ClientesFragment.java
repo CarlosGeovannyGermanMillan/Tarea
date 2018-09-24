@@ -84,12 +84,10 @@ public class ClientesFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         cli.setHasFixedSize(true);
         cli.setLayoutManager(layoutManager);
-        //mostrarCargando("Cargando clientes, espere.....", "Waiting......");
         cargarClientes();
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Refresh items
                 cargarClientes();
             }
         });
@@ -133,11 +131,8 @@ public class ClientesFragment extends Fragment {
         listClientes = db.GetAllClients();
 
         if(listClientes.isEmpty()){
-
-            //nohistorial.setVisibility(View.VISIBLE);
             mSwipeRefreshLayout.setVisibility(View.GONE);
         }else {
-            //nohistorial.setVisibility(View.GONE);
             mSwipeRefreshLayout.setVisibility(View.VISIBLE);
             MyAdapter = new clienteAdapter(listClientes);
             cli.setAdapter(MyAdapter);
@@ -158,9 +153,6 @@ public class ClientesFragment extends Fragment {
                 }
             });
         }
-        //if (mDialog.isShowing())
-        //mDialog.dismiss();
-
     }
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

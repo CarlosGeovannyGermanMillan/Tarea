@@ -16,9 +16,11 @@ import android.view.ViewGroup;
 import com.example.carlosgerman.lavendimia.Aplication.preferences;
 import com.example.carlosgerman.lavendimia.DataBase.StoreDB;
 import com.example.carlosgerman.lavendimia.Modelos.Cliente;
+import com.example.carlosgerman.lavendimia.Modelos.DetalleVenta;
 import com.example.carlosgerman.lavendimia.Modelos.Venta;
 import com.example.carlosgerman.lavendimia.R;
 import com.example.carlosgerman.lavendimia.Utilerias.ItemClickSupport;
+import com.example.carlosgerman.lavendimia.Views.Activities.DetalleVentaActivity;
 import com.example.carlosgerman.lavendimia.Views.Activities.NuevaVentaActivity;
 import com.example.carlosgerman.lavendimia.Views.Adapters.clienteAdapter;
 import com.example.carlosgerman.lavendimia.Views.Adapters.ventaAdapter;
@@ -45,7 +47,6 @@ public class VentasFragment extends Fragment {
     public @BindView(R.id.Fragment_rcv_Ventas) RecyclerView ven;
 
     public VentasFragment() {
-        // Required empty public constructor
     }
 
     public static VentasFragment newInstance(String param1, String param2) {
@@ -76,12 +77,10 @@ public class VentasFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         ven.setHasFixedSize(true);
         ven.setLayoutManager(layoutManager);
-        //mostrarCargando("Cargando clientes, espere.....", "Waiting......");
         cargarVentas();
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Refresh items
                 cargarVentas();
             }
         });
@@ -104,11 +103,8 @@ public class VentasFragment extends Fragment {
         listVentas = db.GetAllVentas();
 
         if(listVentas.isEmpty()){
-
-            //nohistorial.setVisibility(View.VISIBLE);
             mSwipeRefreshLayout.setVisibility(View.GONE);
         }else {
-            //nohistorial.setVisibility(View.GONE);
             mSwipeRefreshLayout.setVisibility(View.VISIBLE);
             MyAdapter = new ventaAdapter(listVentas);
             ven.setAdapter(MyAdapter);
@@ -125,9 +121,6 @@ public class VentasFragment extends Fragment {
                 }
             });
         }
-
-       // if (mDialog.isShowing())
-         //   mDialog.dismiss();
     }
 
     @OnClick(R.id.fragmentVentas_img_nuevo)

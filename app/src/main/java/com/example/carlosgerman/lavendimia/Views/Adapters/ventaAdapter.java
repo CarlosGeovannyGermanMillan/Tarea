@@ -48,7 +48,7 @@ public class ventaAdapter extends RecyclerView.Adapter<ventaAdapter.MyVentasAdap
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), DetalleVentaActivity.class);
 
-                intent.putExtra("ClaveVenta",Holder.itemVenta_txt_folio.getText());
+                intent.putExtra("Folio",Holder.itemVenta_txt_folio.getText());
                 v.getContext().startActivity(intent);
                 //startActivity(intent);
             }

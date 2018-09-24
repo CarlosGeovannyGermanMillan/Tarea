@@ -714,6 +714,7 @@
                                     android:layout_marginLeft="15dp"
                                     android:layout_weight="2"
                                     android:gravity="center"
+                                    android:checked="true"
                                     android:textColor="@color/colorPrimaryDark"
                                     android:textSize="15sp" />
                             </RadioGroup>

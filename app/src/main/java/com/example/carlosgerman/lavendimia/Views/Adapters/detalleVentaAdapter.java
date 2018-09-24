@@ -58,7 +58,6 @@ public class detalleVentaAdapter extends RecyclerView.Adapter<detalleVentaAdapte
         public MyDetalleVentaAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
-            // BASE DE DATOS
             db = new StoreDB(itemView.getContext());
         }
     }

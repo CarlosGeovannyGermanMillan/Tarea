@@ -78,10 +78,7 @@ public class StoreDB extends SQLiteOpenHelper {
         DetalleVenta solicitud = new DetalleVenta();
 
         SQLiteDatabase db = this.getReadableDatabase();
-       /* String query = "select * from " + DetalleVenta_TABLE_NAME + " INNER JOIN "+Articulo_TABLE_NAME +
-                " ON Articulo.Clave = DetalleVenta.ClaveArticulo "+
-                " where ClaveVenta = "+ ventaid;*/
-       String consulta = "select * from "+DetalleVenta_TABLE_NAME;
+       String consulta = "select ClaveVenta,ClaveArticulo,Cantidad from "+DetalleVenta_TABLE_NAME;
         try {
             Cursor res = db.rawQuery(consulta, null);
             res.moveToFirst();
@@ -90,8 +87,9 @@ public class StoreDB extends SQLiteOpenHelper {
                 solicitud.setClaveVenta(res.getInt(0));
                 solicitud.setClaveArticulo(res.getInt(1));
                 solicitud.setCantidad(res.getInt(2));
-
-                array_list.add(solicitud);
+                if (ventaid == solicitud.getClaveVenta()){
+                    array_list.add(solicitud);
+                }
                 res.moveToNext();
             }
         }
@@ -210,21 +208,21 @@ public class StoreDB extends SQLiteOpenHelper {
         Cliente c= new Cliente();
         String x="";
         c.setPrimary(-1);
-        String query = "select * from " + Cliente_TABLE_NAME;
+        String consulta = "select Nombre, ApellidoPaterno, ApellidoMaterno, Clave, RFC from "+Cliente_TABLE_NAME;
         try{
-            Cursor puntero =  db.rawQuery( query, null );
+            Cursor puntero =  db.rawQuery( consulta, null );
             puntero.moveToFirst();
             while (!puntero.isAfterLast()) {
-                c.setPrimary(puntero.getInt(0));
-                c.setNombre(puntero.getString(1));
-                c.setApellidoPaterno(puntero.getString(2));
-                c.setApellidoMaterno(puntero.getString(3));
+                c.setPrimary(puntero.getInt(3));
+                c.setNombre(puntero.getString(0));
+                c.setApellidoPaterno(puntero.getString(1));
+                c.setApellidoMaterno(puntero.getString(2));
                 c.setRFC(puntero.getString(4));
                 x = c.getNombre().toString() + " "+c.getApellidoPaterno().toString()+" "+c.getApellidoMaterno().toString();
-                if (x == client){
+                if (x.equalsIgnoreCase(client)){
                     return c;
-                }
-                puntero.moveToNext();
+                }else
+                    puntero.moveToNext();
             }
         }catch(SQLiteException e) {
             c.setPrimary(-1);
@@ -404,8 +402,8 @@ public class StoreDB extends SQLiteOpenHelper {
     public Articulo GetArticleName(String arti){
         SQLiteDatabase db = this.getReadableDatabase();
         Articulo c= new Articulo();
-        c.setClave(-1);
-        String query = "select * from " + Articulo_TABLE_NAME;
+
+        String query = "select * from " + Articulo_TABLE_NAME + " where Descripcion = '"+arti+"'";
         try{
             Cursor puntero =  db.rawQuery( query, null );
             puntero.moveToFirst();
@@ -469,7 +467,7 @@ public class StoreDB extends SQLiteOpenHelper {
         obj.put("Existencia",articulo.getExistencia());
         obj.put("Modelo",articulo.getModelo());
         obj.put("Precio",articulo.getPrecio());
-        db.insert("Carrito", null,obj );
+        db.insert("Carrito", null,obj);
         return true;
     }
     public int numberOfRows(){
@@ -493,7 +491,7 @@ public class StoreDB extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Articulo c= new Articulo();
         c.setClave(-1);
-        String query = "select * from " + Carrito_TABLE_NAME;
+        String query = "select * from " + Carrito_TABLE_NAME + " where Descripcion = '"+arti+"'";
         try{
             Cursor puntero =  db.rawQuery( query, null );
             puntero.moveToFirst();
@@ -503,10 +501,6 @@ public class StoreDB extends SQLiteOpenHelper {
                 c.setModelo(puntero.getString(2));
                 c.setPrecio(puntero.getDouble(3));
                 c.setExistencia(puntero.getInt(4));
-
-                if (c.getDescripcion().toString() == arti){
-                    return c;
-                }
                 puntero.moveToNext();
             }
         }catch(SQLiteException e) {

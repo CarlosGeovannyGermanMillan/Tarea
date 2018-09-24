@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import com.example.carlosgerman.lavendimia.DataBase.StoreDB;
 import com.example.carlosgerman.lavendimia.Modelos.Articulo;
 import com.example.carlosgerman.lavendimia.Modelos.Cliente;
+import com.example.carlosgerman.lavendimia.Modelos.DetalleVenta;
 import com.example.carlosgerman.lavendimia.Modelos.Venta;
 import com.example.carlosgerman.lavendimia.R;
 import com.example.carlosgerman.lavendimia.Utilerias.ItemClickSupport;
@@ -138,7 +140,6 @@ public class NuevaVentaActivity extends BaseActivity {
 
 
     public NuevaVentaActivity() {
-        // Required empty public constructor
     }
 
 
@@ -170,21 +171,15 @@ public class NuevaVentaActivity extends BaseActivity {
         nuevocliente_input_nombre.setThreshold(1);
         nuevocliente_input_nombre.setAdapter(adapter);
 
-
         String[] articu = RegresaArticulos();
         ArrayAdapter adapterArti = new ArrayAdapter(this, android.R.layout.select_dialog_item, articu);
         nuevocliente_input_articulo.setThreshold(1);
         nuevocliente_input_articulo.setAdapter(adapterArti);
-
-
-        //Articulo cant = db.GetArticleName(nuevocliente_input_articulo.getText().toString());
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
-
         ConsultaCarrito();
         refreshItems();
     }
@@ -258,15 +253,24 @@ public class NuevaVentaActivity extends BaseActivity {
     @OnClick(R.id.nuevaventa_img_buscararticulo)
     void ClickBuscarArticulo() {
 
+
         if (Validacion.hasText(nuevocliente_input_articulo, "Ingrese Articulo")) {
-            Articulo a = db.GetArticleName(nuevocliente_input_articulo.getText().toString());
-            Articulo e = db.GetArticleNameCarrito(nuevocliente_input_articulo.getText().toString());
+           // String ar=nuevocliente_input_articulo.getOnItemClickListener().toString();
+           // Articulo a = db.GetArticleName(nuevocliente_input_articulo.getText().toString());
+            String B = nuevocliente_input_articulo.getText().toString();
+            Articulo a = db.GetArticleName(B);
+            Articulo e = db.GetArticleNameCarrito(B);
+
+            Articulo nuevo = new Articulo();
 
 
             if (e.getClave() == -1){
-                a.setExistencia(1);
-                db.CreateArticuloCarrito(a);
-                mostrarMensajeError("Articulo Agregado");
+                nuevo.setDescripcion(a.getDescripcion());
+                nuevo.setExistencia(1);
+                nuevo.setPrecio(a.getPrecio());
+                nuevo.setModelo(a.getModelo());
+                db.CreateArticuloCarrito(nuevo);
+                mostrarMensajeError("Articulo Nuevo Agregado");
            }else{
                 if (a.getExistencia() >= (e.getExistencia()+1)){
                     e.setExistencia(e.getExistencia()+1);
@@ -283,7 +287,6 @@ public class NuevaVentaActivity extends BaseActivity {
         {
             mostrarMensajeError("Intente de nuevo");
         }
-
     }
 
 
@@ -463,6 +466,19 @@ public class NuevaVentaActivity extends BaseActivity {
         venta.setEstatus("Activa");
         db.CreateVenta(venta);
         mostrarMensaje("Venta Finalizada");
+
+        List<Articulo> array_list = new ArrayList();
+        array_list = db.GetAllArticlesCarrito();
+        DetalleVenta dv;
+
+
+        for (Articulo articulo : array_list) {
+            dv=new DetalleVenta();
+            dv.setClaveVenta(Integer.parseInt(nuevavente_txt_folio.getText().toString()));
+            dv.setClaveArticulo(articulo.getClave());
+            dv.setCantidad(articulo.getExistencia());
+            db.CreateDetail(dv);
+        }
 
         db.deleteAllCarrito();
         Intent intent = new Intent(this,MainActivity.class);
